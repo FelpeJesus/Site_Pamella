@@ -1,0 +1,670 @@
+/* ======================================================
+   1. VARIÁVEIS E TEMA (CONFIGURAÇÃO DE CORES)
+   ====================================================== */
+:root {
+  /* Cores do Modo Claro (Padrão) */
+  --body-bg-image: url("Imagens/esmalte3.jpg");
+  --body-bg-color: transparent;
+  --section-bg: #fafafa; /* Branco mais suave para as seções */
+  --text-color: #333;
+  --text-color-soft: #555;
+  --header-bg: rgba(250, 250, 250, 0.9); /* Fundo do cabeçalho mais suave */
+  --footer-bg: #333;
+  --footer-text: #fff;
+  --footer-link: #ddd;
+  --highlight-color: rgb(209, 108, 147);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode {
+  /* Cores do Modo Escuro */
+  --body-bg-image: none;
+  --body-bg-color: #121212;
+  --section-bg: #1e1e1e;
+  /* Cinza escuro para as caixas */
+  --text-color: #e0e0e0;
+  --text-color-soft: #b0b0b0;
+  --header-bg: rgba(30, 30, 30, 0.95);
+  --footer-bg: #000;
+  --footer-text: #ccc;
+  --footer-link: #888;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Imagem de fundo desfocada */
+body::before {
+  content: "";
+  position: fixed;
+  top: -10px;
+  left: -10px;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  z-index: -2; /* Garante que o fundo fique sempre atrás */
+  background-image: var(--body-bg-image);
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Playfair Display', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--body-bg-color);
+  color: var(--text-color);
+}
+
+/* ======================================================
+   2. CABEÇALHO E NAVEGAÇÃO
+   ====================================================== */
+header {
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: var(--header-bg);
+  /* Usa a variável para mudar no escuro */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px var(--shadow-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-titulo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+header img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav a {
+  color: var(--text-color-soft);
+  text-decoration: none;
+  margin-left: 2rem;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover,
+nav a.active {
+  color: var(--highlight-color);
+}
+
+.btn-agendar {
+  background-color: var(--highlight-color);
+  color: #fff !important;
+  /* Força o texto branco */
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+}
+
+.btn-agendar:hover {
+  transform: scale(1.05);
+  filter: brightness(0.9);
+}
+
+/* Estilo para os botões "Ver Mais" e "Agende Agora" no corpo da página */
+.btn-ver-mais {
+  display: inline-block; /* Garante que padding e margin funcionem bem */
+  background-color: var(--highlight-color);
+  color: #fff;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.3s, filter 0.3s;
+  margin-top: 1rem; /* Espaçamento acima do botão */
+}
+
+.btn-ver-mais:hover {
+  color: #fff; /* Mantém o texto branco no hover */
+  transform: scale(1.05);
+  filter: brightness(0.9);
+}
+
+/* Estilos para os botões de Contato (WhatsApp, Instagram) */
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem; /* Espaçamento entre os botões */
+  margin-top: 2rem;
+  flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas menores */
+}
+
+.contact-button {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: none;
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.contact-button:hover {
+  transform: translateY(-3px); /* Efeito de "levantar" o botão */
+  box-shadow: 0 4px 10px var(--shadow-color);
+  color: #fff;
+}
+
+.contact-button.whatsapp {
+  background-color: #25d366; /* Verde do WhatsApp */
+}
+
+.contact-button.instagram {
+  /* Gradiente do Instagram */
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #bc1888);
+}
+
+/* ======================================================
+   3. SEÇÕES E LAYOUT
+   ====================================================== */
+section {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--section-bg);
+  /* Fundo muda com o tema */
+  border-radius: 12px;
+  position: relative; /* Necessário para o z-index funcionar */
+  z-index: 1; /* Garante que a seção fique acima do fundo */
+  box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+/* Estilo específico para o banner da Home */
+body:has(section#hero) #hero {
+  background-color: transparent !important;
+  box-shadow: none;
+  padding: 0;
+  max-width: 100%;
+  /* Ocupa a tela toda e remove margem superior */
+  /* Altura do banner */
+  height: 60vh;
+}
+
+/* Estilos para o container do mapa ser responsivo */
+.map-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%; /* Proporção 16:9 */
+}
+
+section h2 {
+  color: var(--highlight-color);
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+section p {
+  line-height: 1.8;
+  color: var(--text-color-soft);
+  font-size: 1.1rem;
+}
+
+/* Estilo para o iframe do mapa ser responsivo */
+.map-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ======================================================
+   4. CARROSSEL (BANNER)
+   ====================================================== */
+.banner-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 20px 20px;
+}
+
+.banner-slide {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.banner-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Escurece a imagem */
+}
+
+.slide-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  padding: 1rem;
+}
+
+.slide-content h1,
+.slide-content h2 {
+  color: #fff;
+  font-size: 3rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.slide-content p {
+  color: wheat;
+  font-size: 1.2rem; /* Aumenta um pouco o tamanho da fonte para melhor leitura */
+  text-shadow: 1px 1px 4px rgb(209, 108, 147); /* Adiciona sombra para contraste */
+}
+
+/* ======================================================
+   PÁGINA SOBRE
+   ====================================================== */
+.about-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap; /* Permite que o conteúdo quebre em telas menores */
+}
+
+.about-text {
+  flex: 1; /* Ocupa o espaço disponível */
+  min-width: 300px; /* Largura mínima antes de quebrar a linha */
+}
+
+.about-image-container {
+  flex-shrink: 0; /* Impede que a imagem encolha */
+  text-align: center;
+}
+
+.about-image {
+  width: 250px;
+  height: 250px;
+  object-fit: cover; /* Garante que a imagem não se distorça */
+  border-radius: 50%; /* Deixa a imagem redonda */
+  border: 5px solid var(--highlight-color); /* Adiciona a borda rosa */
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+/* Galeria de Certificados */
+.cert-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.cert-gallery img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+/* ======================================================
+   PÁGINA PREÇOS
+   ====================================================== */
+.tabela-precos-container h2 span {
+  color: var(--text-color);
+  font-weight: normal;
+}
+
+.tabela-precos-container h3 {
+  color: var(--highlight-color);
+  border-left: 4px solid var(--highlight-color);
+  padding-left: 1rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.lista-servicos {
+  list-style: none;
+  padding: 0;
+  font-size: 1.1rem;
+  background-color: #f0f0f0; /* Fundo cinza claro para destacar o cartão */
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0 4px 10px var(--shadow-color); /* Sombra externa para dar destaque */
+}
+
+.lista-servicos li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--shadow-color); /* Linha separadora sutil */
+}
+
+.lista-servicos li:last-child {
+  border-bottom: none; /* Remove a linha do último item */
+}
+
+.lista-servicos .preco {
+  font-weight: bold;
+  color: var(--highlight-color);
+  flex-shrink: 0; /* Impede que o preço quebre a linha */
+}
+/* ======================================================
+   X. GALERIA DE MODELOS
+   ====================================================== */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Cria colunas responsivas */
+  gap: 1.5rem; /* Espaçamento entre as imagens */
+  margin-bottom: 2rem; /* Espaço antes do botão "Ver mais" */
+}
+
+.gallery-item {
+  position: relative; /* Necessário para o posicionamento do overlay */
+  overflow: hidden; /* Esconde partes do overlay que saem do item */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.gallery-item:hover {
+  transform: scale(1.03); /* Efeito de zoom ao passar o mouse */
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem cubra todo o espaço sem distorcer */
+  display: block; /* Remove espaço extra abaixo da imagem */
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1); /* Efeito de zoom na imagem */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  opacity: 0; /* Overlay fica oculto por padrão */
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .overlay {
+  opacity: 1; /* Mostra o overlay ao passar o mouse */
+}
+
+.overlay-price {
+  font-weight: bold;
+  color: var(--highlight-color);
+}
+
+.ver-mais-container {
+  text-align: center; /* Centraliza o conteúdo (o botão) */
+}
+
+/* ======================================================
+   5. BOTÃO DARK MODE (TOGGLE)
+   ====================================================== */
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 1.5rem;
+}
+
+.theme-switch {
+  display: inline-block;
+  height: 26px;
+  position: relative;
+  width: 50px;
+}
+
+.theme-switch input {
+  display: none;
+}
+
+.slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: absolute;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  background-color: white;
+  bottom: 4px;
+  left: 4px;
+  content: "☀️";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked+.slider {
+  background-color: var(--highlight-color);
+}
+
+input:checked+.slider:before {
+  transform: translateX(24px);
+  content: "🌙";
+}
+
+/* ======================================================
+   6. RODAPÉ
+   ====================================================== */
+.site-footer {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 2rem 1rem 1rem;
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  position: relative; /* Necessário para posicionar o botão "Voltar ao topo" */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--footer-link);
+}
+
+.footer-logo-section {
+  text-align: center; /* Centraliza o conteúdo (logo e título) */
+}
+
+.footer-logo-section h3 {
+  color: var(--footer-text);
+}
+
+.footer-section h4 {
+  border-bottom: 2px solid var(--highlight-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  color: var(--footer-text);
+}
+
+/* Aplica a linha rosa ao H3 do logo também */
+.footer-logo-section h3 {
+  border-bottom: 2px solid var(--highlight-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.logo-titulo-footer {
+  text-decoration: none; /* Remove o sublinhado do link */
+  color: inherit; /* Herda a cor do texto do pai */
+}
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+  color: var(--footer-link);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: var(--highlight-color);
+}
+
+.footer-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.back-to-top-btn:hover { 
+  transform: scale(1.1); /* Aumenta o tamanho ao passar o mouse */
+  background-color: #e78cb0; /* Um tom mais claro de rosa */
+}
+
+.back-to-top-btn svg {
+  width: 24px; /* Tamanho do ícone */
+  height: 24px; /* Tamanho do ícone */
+}
+
+.footer-bottom p {
+  margin: 0; /* Remove a margem padrão */
+  color: var(--footer-text); /* Cor do texto do rodapé */
+}
+
+.back-to-top-btn {
+  position: absolute; /* Posicionamento absoluto em relação ao footer */
+  right: 2rem; /* Distância da direita */
+  bottom: 5.5rem; /* Distância de baixo, para ficar acima da linha */
+
+  background-color: var(--highlight-color); /* Cor de fundo do botão */
+  color: #fff; /* Cor do ícone */
+  width: 40px; /* Largura do botão */
+  height: 40px; /* Altura do botão */
+  border-radius: 50%; /* Botão redondo */
+  display: flex; /* Usa flexbox para centralizar o conteúdo */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+  text-decoration: none; /* Remove sublinhado */
+  transition: transform 0.3s, background-color 0.3s;  /* Animação suave */
+}
+/* ======================================================
+   7. RESPONSIVIDADE (CELULAR)
+   ====================================================== */
+@media (max-width: 768px) {
+  .header-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  nav {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  nav a {
+    margin: 0;
+  }
+
+  .slide-content h2 {
+    font-size: 2rem;
+  }
+
+  #hero {
+    height: 50vh;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .payment-methods {
+    justify-content: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  /* Garante que o botão fique por último no celular */
+  .footer-bottom .back-to-top-btn {
+    order: 3;
+  }
+}
